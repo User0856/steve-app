@@ -23,50 +23,6 @@ public class Application {
         profileController.showProfile(5);
 
 
-
-
-
-
-
-
-
-/*
-//implementation of application States
-        currentState = new StateIdle();
-        changeState(new StateIdle(), "idle");
-        currentState = new StateIdle();
-        String commandName = "test command";
-        currentState.onCommand(commandName);
-
-        for (int i = 0; i < 10; i++) {
-            currentState.onCommand(commandName+i);
-
-        }
-        System.out.println("Hello, my name is " + APP_NAME);
-        System.out.println("My author's name is " + AUTHOR);
-
-//implementation of class without sepatare description
-
-        ACommand command = new ACommand("anonymous") {
-            @Override
-            public void execute() {
-                System.out.println("Executing anonymous....");
-            }
-        };
-        command.execute();
-
-//initioal implementation if INSTANCE of objects
-
-        String commandName = "version";
-        ACommand command = CommandRegistry.INSTANCE.getCommand(commandName);
-        command.execute();
-        commandName = "creator";
-        command = CommandRegistry.INSTANCE.getCommand(commandName);
-        command.execute();
-        CommandRegistry.INSTANCE.listCommands();
-*/
-
-
     }
 
     public static void changeState(ApplicationState newState, String commandName){
