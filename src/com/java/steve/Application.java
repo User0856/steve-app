@@ -3,6 +3,7 @@ package com.java.steve;
 import com.java.steve.Command.ACommand;
 import com.java.steve.Command.CommandRegistry;
 import com.java.steve.common.ConsoleCanvas;
+import com.java.steve.db.Database;
 import com.java.steve.db.Record;
 import com.java.steve.db.Table;
 import com.java.steve.profile.ProfileController;
@@ -12,8 +13,10 @@ import com.java.steve.state.ApplicationState;
 import com.java.steve.state.ApplicationState;
 import com.java.steve.state.StateIdle;
 
+import javax.xml.crypto.Data;
 import java.time.chrono.ThaiBuddhistEra;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Application {
@@ -27,32 +30,85 @@ public class Application {
     public static void main(String[] args) {
 
 
-        List<String> columns = new ArrayList<>();
-        columns.add("id");
-        columns.add("fastName");
-        columns.add("lastName");
-        Table criminalTable = new Table("criminals", columns);
-        List<String> values = new ArrayList<>();
-        List<String> values2 = new ArrayList<>();
-        values.add("1");
-        values.add("Steve");
-        values.add("Balmer");
 
-        values2.add("2");
-        values2.add("Karl");
-        values2.add("Balmer+");
+        List<String[]> records = Database.readDataFile("////");
 
-        Record criminal = new Record(values);
-//        Record criminal2 = new Record(values2);
-        criminalTable.insert(new Record(values));
-        criminalTable.insert(new Record(values2));
+        Table table = new Table("Criminals", Arrays.asList(new String[]{"id", "name", "deceased"}));
+        Database.readDataFile("///");
 
-
-        List<String> result = criminalTable.selectField("id");
-
-        for (String s : result) {
-            System.out.println(s);
+        for (String[] s : records) {
+            Record rec = new Record(table);
+            rec.setValues(s);
+            table.insert(rec);
         }
+
+        Record rec = new Record(table);
+        rec.setValues(new String[]{"1", "Antony Saprano", "false"});
+        try{
+            System.out.println(rec.getInt("id"));
+            System.out.println(rec.getBoolean("deceased"));
+        } catch(Record.FieldNotFoundException ex){
+            ex.printStackTrace();
+        } catch(NumberFormatException nfe) {
+            nfe.printStackTrace();
+
+        }
+        System.out.println("no execptions.");
+
+
+
+
+
+
+
+
+
+    }
+
+    public static void changeState(ApplicationState newState, String commandName){
+        currentState.exit();
+        currentState = newState;
+        currentState.enter(commandName);
+    }
+
+}
+
+
+
+//    ConsoleCanvas canvas = new ConsoleCanvas(15, 15);
+//    canvas.drawTextAt(1, 2, "One morning Karl Weiss went out from his pretty german house in Baerlin, and he had no idea that it will be the last day of his life.");
+//    canvas.draw();
+
+
+
+/*
+  Database db = new Database();
+       Thread thread1 = new Thread(){
+           @Override
+           public void run(){
+               try{
+                   Thread.sleep(1000);
+                   db.select();
+
+               } catch (InterruptedException e){
+
+               }
+           }
+       };
+
+       Runnable runnable = new Runnable(){
+           @Override
+           public void run(){
+
+                   db.update();
+
+           }
+
+       };
+
+       thread1.start();
+       (new Thread(runnable)).start();
+ */
 
 
 
@@ -100,13 +156,3 @@ public class Application {
             }
         };
          */
-
-    }
-
-    public static void changeState(ApplicationState newState, String commandName){
-        currentState.exit();
-        currentState = newState;
-        currentState.enter(commandName);
-    }
-
-}

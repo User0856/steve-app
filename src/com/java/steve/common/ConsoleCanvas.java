@@ -1,5 +1,9 @@
 package com.java.steve.common;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+
 public class ConsoleCanvas extends Canvas{
 
     private char[][] pixes;
@@ -44,48 +48,42 @@ public class ConsoleCanvas extends Canvas{
 
     public void drawSquareAt (int x, int y, int size){
 
-
-
-
-        for (int i = y; i < y+size; i++) {
-            pixes[x][i]='#';
+        for (int i = x-1; i < x+size-1; i++) {
+            pixes[y-1][i]='#';
+            pixes[y+size-2][i]='#';
         }
-
-        for (int i = x; i < y+size-2; i++) {
-            for (int j = y; j < y+size; j=j+size-1) {
-                pixes[i][j]='#';
-            }
+        for(int i = y; i<y+size-1; i++){
+            pixes[i][x-1]='#';
+            pixes[i][x+size-2]='#';
         }
-
-        for (int i = y; i < y+size; i++) {
-            pixes[x+size-1][i]='#';
-        }
-
-/*
-
-        for (int i = y; i < y+size; i++) {
-            pixes[x][i]='#';
-        }
-
-        for (int i = x; i < y+size-2; i++) {
-            for (int j = y; j < y+size; j=j+size-1) {
-                pixes[i][j]='#';
-            }
-        }
-
-        for (int i = y; i < y+size; i++) {
-            pixes[x+size-1][i]='#';
-        }
- */
-
     }
 
 
     public void drawCircleAt(int x, int y, int radius){
 
+        for(int i=-radius; i<y+radius; i++){
+            for (int j = -radius; j<x+radius; j++){
+                if(Math.pow(radius, 2) >= Math.pow(j, 2) + Math.pow(i, 2)){
+                    pixes[i+y][j+x]='#';
+                }
+            }
+        }
     }
 
     public void drawTextAt(int x, int y, String text){
+
+        char[] charArray = text.toCharArray();
+        int size = charArray.length;
+        int n = 0;
+            for (int i = y; i < 15; i++) {
+                for (int j = x; j < 15; j++) {
+                    if(n<size){
+                        pixes[i][j]=charArray[n];
+                        n++;
+                    }
+
+                }
+            }
 
     }
 

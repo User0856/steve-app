@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public  class Table {
+public class Table {
 
     protected String name;
     protected List <String> columns;
@@ -23,19 +23,13 @@ public  class Table {
         records.add(record);
     }
 
-    //SELECT id, firstname, lastname
-    //make a separate thread, each entry with a delay 100 ms, include loading before table
-    public void select(String query){
+    public List<String> getColumns(){
 
-
-        /*
-        -----------------------------------------------
-        id             firstname             lastname
-        -----------------------------------------------
-        1               Firstname             Lastname
-         */
-
+        return columns;
     }
+
+
+
 
     public List<String> selectField(String fieldName){
         int index = columns.indexOf(fieldName);
@@ -51,3 +45,28 @@ public  class Table {
 
 
 }
+
+    /*
+    TODO
+
+    SELECT id, firstname, lastname
+    make a separate thread, each entry with a delay 100 ms, include loading before table
+    public void select(String query){
+
+
+
+        -----------------------------------------------
+        id             firstname             lastname
+        -----------------------------------------------
+        1               Firstname             Lastname
+
+
+
+    ---------
+    to innit dbs from file on start
+
+
+
+
+
+     */

@@ -2,6 +2,8 @@ package com.java.steve.profile;
 
 import com.java.steve.common.BaseModel;
 
+import java.util.Date;
+
 
 public class ProfileModel extends BaseModel {
 
@@ -9,6 +11,13 @@ public class ProfileModel extends BaseModel {
     private String firstName;
     private String lastName;
     private boolean active;
+    private String nickname;
+    private int numberOfCrimes;
+    private Date dateOfBirth;
+    private boolean deceased;
+    private String description;
+    private String placeOfBirth;
+
 
     public ProfileModel(int id, String firstName, String lastName, boolean active) {
         this.id = id;
