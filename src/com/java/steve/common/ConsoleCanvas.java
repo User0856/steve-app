@@ -120,8 +120,6 @@ public class ConsoleCanvas extends Canvas{
        System.out.println();
 
 
-
-
     }
 
 }

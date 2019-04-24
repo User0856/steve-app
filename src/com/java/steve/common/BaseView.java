@@ -1,8 +1,12 @@
 package com.java.steve.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class BaseView {
 
     protected BaseModel model;
+    public static List<BaseView> children = new ArrayList<>();
 
     public void draw(){
         System.out.println("Drawing should be implemented...");

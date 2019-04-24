@@ -1,18 +1,28 @@
 package com.java.steve.db;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Database {
 
-    Map<String, Table> tables;
+    static final Map<String, Table> tables;
 
     private Object tableLock = new Object();
+    public static final String[] CRIMNIALS_COLUMNS = new String[]{"id", "firstName"};
+    public static final String[] CRIME_FAMILY_COLUMNS = new String[]{"id", "name"};
 
     //DB.query("SELECT ID, NAME, EMAIL FROM CRIMINAL WHERE ID = ?");
 
+    static{
+        tables = new HashMap<>();
+        tables.put("Criminals", new Table("Criminals", Arrays.asList(CRIMNIALS_COLUMNS)));
+        tables.put("Criminal Family", new Table("Criminal Family", Arrays.asList(CRIME_FAMILY_COLUMNS)));
+
+
+    }
+public void init(){
+        //load data to tables
+}
 
 
 

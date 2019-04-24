@@ -17,7 +17,10 @@ import javax.xml.crypto.Data;
 import java.time.chrono.ThaiBuddhistEra;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Application {
 
@@ -27,12 +30,154 @@ public class Application {
 
     static ApplicationState currentState;
 
+    /*
+    + - 1 time or more
+    * - - times or more
+    *     public static final String ALLOWED_DOMAIN_NAMES = "^([a-zA-Z0-9]+\\.)+[a-zA-Z]+$";
+     */
+
+    public static final String ALLOWED_DOMAIN_NAMES = "^([a-zA-Z0-9]+\\.)+(com|de|ru)$";
+
+    //"SELECT id, firstName, lastName, FROM Criminals"
+
+    public static final String OP_GROUP = "^(SELECT|DELETE)";
+    public static  final String FLD_GROUP = "([a-zA-Z, ]+)";
+    public static final String SPACE = "([\\s]+)";
+    public static final String FROM_GROUP = "(FROM)";
+    public static final String TBL_GROUP = "([a-zA-Z]+)$";
+
+
+
+
     public static void main(String[] args) {
 
+        String query = "SELECT id, firstName, lastName, FROM Criminals";
+
+        Pattern p = Pattern.compile(OP_GROUP + SPACE + FLD_GROUP + SPACE + FROM_GROUP + SPACE + TBL_GROUP);
+        Matcher matcher = p.matcher(query);
+        if(matcher.find()){
+            System.out.println("Number of groups: " + matcher.groupCount());
+            for (int i = 0, len = matcher.groupCount(); i <= len; i++) {
+                System.out.println(matcher.group(i));
+            }
+        }
+
+        //Profilecontroller show
 
 
-        List<String[]> records = Database.readDataFile("////");
 
+    }
+
+    public static void printList(List<String> list, String filter){
+        for (String s : list) {
+            if(s.matches(filter)){
+                System.out.println(s);
+            }
+
+        }
+    }
+
+    public static void printList(List<String> list){
+        for (String s : list) {
+
+                System.out.println(s);
+
+
+        }
+    }
+
+    public static void foreachCleanup(List<String> list, String filter){
+        for (String s : list) {
+            if(!s.matches(filter)){
+                list.remove(s);
+            }
+        }
+    }
+//TODO
+    public static void iteratorCleanup(List<String> list, String filter){
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()){
+            String s = it.next();
+            if(!s.matches(filter)){
+              it.remove();
+            }
+        }
+
+    }
+
+
+
+
+
+    public static void changeState(ApplicationState newState, String commandName){
+        currentState.exit();
+        currentState = newState;
+        currentState.enter(commandName);
+    }
+
+}
+
+
+
+
+
+
+
+/*
+        String query = "SELECT id, firstName, lastName, FROM Criminals";
+
+        Pattern p = Pattern.compile(OP_GROUP + SPACE + FLD_GROUP + SPACE + FROM_GROUP + SPACE + TBL_GROUP);
+        Matcher matcher = p.matcher(query);
+        if(matcher.find()){
+            System.out.println("Number of groups: " + matcher.groupCount());
+            for (int i = 0, len = matcher.groupCount(); i <= len; i++) {
+                System.out.println(matcher.group(i));
+            }
+        }
+ */
+
+
+
+
+
+
+/*
+        List<String> list = new ArrayList<>();
+        list.add("developer.apple.com");
+        list.add("google.com");
+        list.add("wrong");
+        list.add(".another");
+        list.add("this is wrong domain name");
+        list.add("facebook.com");
+        list.add("nasa.gov");
+        list.add("handlelsblatt.de");
+        list.add("login.cinoodials.elpais.com");
+        list.add("yandex.ru");
+        list.add("mail.ru");
+
+
+        iteratorCleanup(list, ALLOWED_DOMAIN_NAMES);
+        printList(list);
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+   List<String[]> records = Database.readDataFile("////");
         Table table = new Table("Criminals", Arrays.asList(new String[]{"id", "name", "deceased"}));
         Database.readDataFile("///");
 
@@ -56,29 +201,12 @@ public class Application {
         System.out.println("no execptions.");
 
 
-
-
-
-
-
-
-
-    }
-
-    public static void changeState(ApplicationState newState, String commandName){
-        currentState.exit();
-        currentState = newState;
-        currentState.enter(commandName);
-    }
-
-}
-
+ */
 
 
 //    ConsoleCanvas canvas = new ConsoleCanvas(15, 15);
 //    canvas.drawTextAt(1, 2, "One morning Karl Weiss went out from his pretty german house in Baerlin, and he had no idea that it will be the last day of his life.");
 //    canvas.draw();
-
 
 
 /*
@@ -112,7 +240,6 @@ public class Application {
 
 
 
-
         /*
 
                 Runnable thread = new Thread(){
@@ -134,10 +261,6 @@ public class Application {
 
 
         ((Thread) thread).start();
-
-
-
-
 
 
         Runnable runnable1 = new Runnable() {

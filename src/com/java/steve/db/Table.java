@@ -19,6 +19,10 @@ public class Table {
         this.columns = columns;
     }
 
+    public Table(String name){
+        this.name = name;
+    }
+
     public void insert(Record record){
         records.add(record);
     }

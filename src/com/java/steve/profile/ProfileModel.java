@@ -1,6 +1,7 @@
 package com.java.steve.profile;
 
 import com.java.steve.common.BaseModel;
+import com.java.steve.db.Record;
 
 import java.util.Date;
 
@@ -31,12 +32,34 @@ public class ProfileModel extends BaseModel {
         boolean rActive = rId % 2 == 0;
         String rFirstName = "Steve_" + rId;
         String rLastName = "Balmer_" + rId;
-
-
         return new ProfileModel(rId, rFirstName, rLastName, rActive);
     }
 
+    ProfileModel(){};
 
+    public static ProfileModel modelFromRecord(Record recuord){
+        ProfileModel model = new ProfileModel();
+        try{
+            model
+                    .setDeceased(recuord.getBoolean("deceased"))
+                    .setId(recuord.getInt("id"));
+        } catch (Exception e){
+
+        }
+        return null;
+
+
+    }
+
+    public boolean isDeceased() {
+        return deceased;
+    }
+
+    public ProfileModel setDeceased(boolean deceased) {
+        this.deceased = deceased;
+        return this;
+
+    }
 
     public boolean isActive() {
         return active;

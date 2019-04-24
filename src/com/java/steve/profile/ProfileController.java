@@ -29,6 +29,7 @@ public class ProfileController {
             view.setModel(model);
             view.draw();
             view.draw(canvas);
+
         }
 
 
