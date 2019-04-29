@@ -30,16 +30,7 @@ public class Application {
 
     static ApplicationState currentState;
 
-    /*
-    + - 1 time or more
-    * - - times or more
-    *     public static final String ALLOWED_DOMAIN_NAMES = "^([a-zA-Z0-9]+\\.)+[a-zA-Z]+$";
-     */
-
     public static final String ALLOWED_DOMAIN_NAMES = "^([a-zA-Z0-9]+\\.)+(com|de|ru)$";
-
-    //"SELECT id, firstName, lastName, FROM Criminals"
-
     public static final String OP_GROUP = "^(SELECT|DELETE)";
     public static  final String FLD_GROUP = "([a-zA-Z, ]+)";
     public static final String SPACE = "([\\s]+)";
@@ -51,18 +42,11 @@ public class Application {
 
     public static void main(String[] args) {
 
-        String query = "SELECT id, firstName, lastName, FROM Criminals";
 
-        Pattern p = Pattern.compile(OP_GROUP + SPACE + FLD_GROUP + SPACE + FROM_GROUP + SPACE + TBL_GROUP);
-        Matcher matcher = p.matcher(query);
-        if(matcher.find()){
-            System.out.println("Number of groups: " + matcher.groupCount());
-            for (int i = 0, len = matcher.groupCount(); i <= len; i++) {
-                System.out.println(matcher.group(i));
-            }
-        }
 
-        //Profilecontroller show
+
+        ProfileController profileController = new ProfileController();
+        profileController.showProfile(1);
 
 
 
@@ -108,6 +92,24 @@ public class Application {
 
 
 
+            /*
+                String query = "SELECT id, firstName, lastName, FROM Criminals";
+
+        Pattern p = Pattern.compile(OP_GROUP + SPACE + FLD_GROUP + SPACE + FROM_GROUP + SPACE + TBL_GROUP);
+        Matcher matcher = p.matcher(query);
+        if(matcher.find()){
+            System.out.println("Number of groups: " + matcher.groupCount());
+            for (int i = 0, len = matcher.groupCount(); i <= len; i++) {
+                System.out.println(matcher.group(i));
+            }
+        }
+         */
+
+
+
+
+
+
 
     public static void changeState(ApplicationState newState, String commandName){
         currentState.exit();
@@ -118,164 +120,3 @@ public class Application {
 }
 
 
-
-
-
-
-
-/*
-        String query = "SELECT id, firstName, lastName, FROM Criminals";
-
-        Pattern p = Pattern.compile(OP_GROUP + SPACE + FLD_GROUP + SPACE + FROM_GROUP + SPACE + TBL_GROUP);
-        Matcher matcher = p.matcher(query);
-        if(matcher.find()){
-            System.out.println("Number of groups: " + matcher.groupCount());
-            for (int i = 0, len = matcher.groupCount(); i <= len; i++) {
-                System.out.println(matcher.group(i));
-            }
-        }
- */
-
-
-
-
-
-
-/*
-        List<String> list = new ArrayList<>();
-        list.add("developer.apple.com");
-        list.add("google.com");
-        list.add("wrong");
-        list.add(".another");
-        list.add("this is wrong domain name");
-        list.add("facebook.com");
-        list.add("nasa.gov");
-        list.add("handlelsblatt.de");
-        list.add("login.cinoodials.elpais.com");
-        list.add("yandex.ru");
-        list.add("mail.ru");
-
-
-        iteratorCleanup(list, ALLOWED_DOMAIN_NAMES);
-        printList(list);
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-   List<String[]> records = Database.readDataFile("////");
-        Table table = new Table("Criminals", Arrays.asList(new String[]{"id", "name", "deceased"}));
-        Database.readDataFile("///");
-
-        for (String[] s : records) {
-            Record rec = new Record(table);
-            rec.setValues(s);
-            table.insert(rec);
-        }
-
-        Record rec = new Record(table);
-        rec.setValues(new String[]{"1", "Antony Saprano", "false"});
-        try{
-            System.out.println(rec.getInt("id"));
-            System.out.println(rec.getBoolean("deceased"));
-        } catch(Record.FieldNotFoundException ex){
-            ex.printStackTrace();
-        } catch(NumberFormatException nfe) {
-            nfe.printStackTrace();
-
-        }
-        System.out.println("no execptions.");
-
-
- */
-
-
-//    ConsoleCanvas canvas = new ConsoleCanvas(15, 15);
-//    canvas.drawTextAt(1, 2, "One morning Karl Weiss went out from his pretty german house in Baerlin, and he had no idea that it will be the last day of his life.");
-//    canvas.draw();
-
-
-/*
-  Database db = new Database();
-       Thread thread1 = new Thread(){
-           @Override
-           public void run(){
-               try{
-                   Thread.sleep(1000);
-                   db.select();
-
-               } catch (InterruptedException e){
-
-               }
-           }
-       };
-
-       Runnable runnable = new Runnable(){
-           @Override
-           public void run(){
-
-                   db.update();
-
-           }
-
-       };
-
-       thread1.start();
-       (new Thread(runnable)).start();
- */
-
-
-
-        /*
-
-                Runnable thread = new Thread(){
-            @Override
-            public void run(){
-                for (int i = 0; i < 20; i++) {
-                    System.out.print(".");
-                    try{
-                        Thread.sleep(500);
-//                        System.out.println(this.getState());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println("done");
-            }
-        };
-        System.out.println("\nloading");
-
-
-        ((Thread) thread).start();
-
-
-        Runnable runnable1 = new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 10; i++) {
-                    System.out.println("-");
-                    try{
-                        Thread.sleep(100);
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-        };
-         */

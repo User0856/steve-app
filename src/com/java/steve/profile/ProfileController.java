@@ -14,9 +14,7 @@ public class ProfileController {
         view = new ProfileView();
 
 
-
     }
-
 
 
 
