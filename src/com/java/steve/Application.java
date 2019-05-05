@@ -9,16 +9,15 @@ import com.java.steve.db.Table;
 import com.java.steve.profile.ProfileController;
 import com.java.steve.profile.ProfileModel;
 import com.java.steve.profile.ProfileView;
+import com.java.steve.server.AppServer;
 import com.java.steve.state.ApplicationState;
 import com.java.steve.state.ApplicationState;
 import com.java.steve.state.StateIdle;
 
 import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.time.chrono.ThaiBuddhistEra;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,9 +37,24 @@ public class Application {
     public static final String TBL_GROUP = "([a-zA-Z]+)$";
 
 
+    public static void main(String[] args) throws IOException {
 
 
-    public static void main(String[] args) {
+        AppServer.INSTANCE.start();
+
+
+
+        Scanner sc = new Scanner(System.in);
+        String name;
+        while (sc.hasNext()){
+            name = sc.next();
+            if(CommandRegistry.INSTANCE.hasCommand(name)){
+                ACommand command = CommandRegistry.INSTANCE.getCommand(name);
+                command.execute();
+            } else {
+                System.out.println("Command \"" + name + "\" not implemented");
+            }
+        }
 
 
 
@@ -52,43 +66,14 @@ public class Application {
 
     }
 
-    public static void printList(List<String> list, String filter){
-        for (String s : list) {
-            if(s.matches(filter)){
-                System.out.println(s);
-            }
 
-        }
+    public static void changeState(ApplicationState newState, String commandName){
+        currentState.exit();
+        currentState = newState;
+        currentState.enter(commandName);
     }
 
-    public static void printList(List<String> list){
-        for (String s : list) {
-
-                System.out.println(s);
-
-
-        }
-    }
-
-    public static void foreachCleanup(List<String> list, String filter){
-        for (String s : list) {
-            if(!s.matches(filter)){
-                list.remove(s);
-            }
-        }
-    }
-//TODO
-    public static void iteratorCleanup(List<String> list, String filter){
-        Iterator<String> it = list.iterator();
-        while(it.hasNext()){
-            String s = it.next();
-            if(!s.matches(filter)){
-              it.remove();
-            }
-        }
-
-    }
-
+}
 
 
 
@@ -104,19 +89,3 @@ public class Application {
             }
         }
          */
-
-
-
-
-
-
-
-    public static void changeState(ApplicationState newState, String commandName){
-        currentState.exit();
-        currentState = newState;
-        currentState.enter(commandName);
-    }
-
-}
-
-

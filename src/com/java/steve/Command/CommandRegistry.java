@@ -16,6 +16,8 @@ public enum CommandRegistry {
         commands.put("author", new CommandAuthor("author"));
         commands.put("creator", new CommandAuthor("author"));
         commands.put("father", new CommandAuthor("author"));
+        commands.put("help", new CommandHelp("help"));
+        commands.put("status", new CommandDBStatus("database status"));
     }
 
     public ACommand getCommand(String name){
@@ -33,7 +35,7 @@ public enum CommandRegistry {
         }
     }
 
-    public boolean hasComamnd(String name){
+    public boolean hasCommand(String name){
         return commands.containsKey(name);
     }
 
