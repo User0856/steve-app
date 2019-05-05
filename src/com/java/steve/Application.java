@@ -27,27 +27,27 @@ public class Application {
     static public final String AUTHOR = "Aleksandr Lutkov";
     static public final String VERSION = "0.0.0";
 
-    static ApplicationState currentState;
-
-    public static final String ALLOWED_DOMAIN_NAMES = "^([a-zA-Z0-9]+\\.)+(com|de|ru)$";
     public static final String OP_GROUP = "^(SELECT|DELETE)";
     public static  final String FLD_GROUP = "([a-zA-Z, ]+)";
     public static final String SPACE = "([\\s]+)";
     public static final String FROM_GROUP = "(FROM)";
     public static final String TBL_GROUP = "([a-zA-Z]+)$";
 
+    static ApplicationState currentState;
+
+
 
     public static void main(String[] args) throws IOException {
 
 
-        AppServer.INSTANCE.start();
+        //AppServer.INSTANCE.start();
 
 
 
         Scanner sc = new Scanner(System.in);
         String name;
         while (sc.hasNext()){
-            name = sc.next();
+            name = sc.nextLine();
             if(CommandRegistry.INSTANCE.hasCommand(name)){
                 ACommand command = CommandRegistry.INSTANCE.getCommand(name);
                 command.execute();
@@ -77,8 +77,24 @@ public class Application {
 
 
 
-            /*
-                String query = "SELECT id, firstName, lastName, FROM Criminals";
+
+
+/*
+
+
+
+                public static final String ALLOWED_DOMAIN_NAMES = "^([a-zA-Z0-9]+\\.)+(com|de|ru)$";
+    public static final String OP_GROUP = "^(SELECT|DELETE)";
+    public static  final String FLD_GROUP = "([a-zA-Z, ]+)";
+    public static final String SPACE = "([\\s]+)";
+    public static final String FROM_GROUP = "(FROM)";
+    public static final String TBL_GROUP = "([a-zA-Z]+)$";
+
+
+
+
+
+         String query = "SELECT id, firstName, lastName, FROM Criminals";
 
         Pattern p = Pattern.compile(OP_GROUP + SPACE + FLD_GROUP + SPACE + FROM_GROUP + SPACE + TBL_GROUP);
         Matcher matcher = p.matcher(query);
@@ -88,4 +104,7 @@ public class Application {
                 System.out.println(matcher.group(i));
             }
         }
-         */
+
+
+
+*/

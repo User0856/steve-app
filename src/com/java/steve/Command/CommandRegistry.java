@@ -8,6 +8,7 @@ public enum CommandRegistry {
     INSTANCE;
 
     static Map<String, ACommand> commands;
+    public static final String QUERY_NAME = "([a-zA-Z0-9]*) ";
 
     static {
         commands = new HashMap<>();
@@ -18,6 +19,8 @@ public enum CommandRegistry {
         commands.put("father", new CommandAuthor("author"));
         commands.put("help", new CommandHelp("help"));
         commands.put("status", new CommandDBStatus("database status"));
+        commands.put("query", new CommandQuery("database query"));
+        commands.put("query: " + QUERY_NAME, new CommandQuery("database query"));
     }
 
     public ACommand getCommand(String name){
